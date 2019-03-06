@@ -15,21 +15,25 @@ go get github.com/keni7385/rp10-custom-metrics
 
 ## Download dependencies
 
-It might take few minutes:
+On the first time, it might take few minutes:
 
 ```bash
 cd "$GOPATH/src/github.com/keni7385/rp10-custom-metrics"
-glide install -v
+make vendor
 ```
 
-(Option `-v` ESSENTIAL, `glide install -h` for help)
+This passage is optional, because will be automatically performed by the [build step](#build)
 
 ## Build
 
 ```bash
-go build
+make build-adapter
 ```
 
-## Test & Deploy
+## Deploy
 
-WIP
+```bash
+make adapter-container
+```
+
+It creates a Docker image and push it to the target registry (set var `$REGISTRY`, see `Makefile`). Then will populate the file `deploy/adapter.yaml` (originally a template, where `REGISTRY` and `IMAGE` is filled in).
